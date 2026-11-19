@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Report an Issue — CivicPulse</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="css/variables.css" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/map.css" />
+</head>
+<body>
+  <header class="navbar">
+    <div class="container navbar-inner">
+      <a href="index.html" class="brand">
+        <span class="brand-dot"></span>
+        CIVICPULSE
+      </a>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html">Explore Map</a></li>
+          <li><a href="my-complaints.html">My Complaints</a></li>
+          <li><a href="index.html#public-stats">Public Stats</a></li>
+        </ul>
+      </nav>
+      <div class="nav-actions" id="nav-auth-area">
+        <a href="auth.html" class="btn btn-outline btn-sm">Login</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="section-header">
+      <h1 class="section-title">Report a Civic Issue</h1>
+      <a href="index.html" class="btn btn-outline btn-sm">&larr; Back to Map</a>
+    </div>
+
+    <div id="report-alert" class="alert-box" style="display: none;"></div>
+
+    <form id="report-form" class="form-grid">
+      <!-- Left Column: Details & Photo Evidence -->
+      <div class="card">
+        <div class="form-group">
+          <label for="category_id" class="form-label">Civic Issue Category *</label>
+          <select id="category_id" name="category_id" class="form-control" required>
+            <option value="">-- Select a category --</option>
+            <option value="1">1. Roads &amp; Potholes</option>
+            <option value="2">2. Garbage &amp; Sanitation</option>
+            <option value="3">3. Drainage &amp; Waterlogging</option>
+            <option value="4">4. Streetlights &amp; Electricity</option>
+            <option value="5">5. Water Supply</option>
+            <option value="6">6. Public Infrastructure</option>
+            <option value="7">7. Other Civic Issues</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="description" class="form-label">Problem Description *</label>
+          <textarea
+            id="description"
+            name="description"
+            class="form-control"
+            placeholder="Describe the exact issue and nearest landmark (e.g., Blocked storm drain causing waterlogging near Station Rd bus stand)..."
+            required
+          ></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Photographic Evidence (JPG / PNG, max 5MB)</label>
+          <div id="photo-dropzone" class="dropzone">
+            <p style="font-weight: 600; color: var(--primary-dark);">Click to upload or drag &amp; drop photo</p>
+            <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.25rem;">
+              Clear field photos help municipal officials verify and dispatch faster.
+            </p>
+            <input type="file" id="photo-input" name="photo" accept="image/jpeg,image/png" hidden />
+            <img id="photo-preview" class="dropzone-preview" alt="Uploaded evidence preview" />
+          </div>
+        </div>
+
+        <!-- Pre-Submission Duplicate Check Alert -->
+        <div id="duplicate-warning" class="alert-box alert-warning" style="display: none;">
+          <strong>Possible Nearby Duplicate Detected:</strong>
+          <ul id="duplicate-list" style="margin: 0.5rem 0 0 1.25rem; font-size: 0.84rem;"></ul>
+          <p style="margin-top: 0.5rem; font-size: 0.82rem;">
+            You can upvote an existing issue above, or continue submitting if this is a distinct problem.
+          </p>
+        </div>
+
+        <button type="submit" id="submit-report-btn" class="btn btn-primary btn-block">
+          Submit Civic Report
+        </button>
+      </div>
+
+      <!-- Right Column: Interactive Location Pinning -->
+      <div class="card">
+        <div class="section-header" style="margin-bottom: 0.75rem;">
+          <label class="form-label" style="margin-bottom: 0;">Pin Exact Location *</label>
+          <button type="button" id="detect-gps-btn" class="btn btn-outline btn-sm">
+            Auto-Detect GPS
+          </button>
+        </div>
+        <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 0.75rem;">
+          Click anywhere on the map or drag the marker to set the exact street coordinates.
+        </p>
+
+        <div id="report-map"></div>
+
+        <div class="coord-bar">
+          <span class="coord-text" id="coord-display">Lat: 22.8914, Lng: 88.3972</span>
+          <span style="font-size: 0.78rem; color: var(--text-muted);">Pin Confirmed</span>
+        </div>
+
+        <input type="hidden" id="latitude" name="latitude" value="22.8914" required />
+        <input type="hidden" id="longitude" name="longitude" value="88.3972" required />
+      </div>
+    </form>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      CivicPulse &mdash; Community Problem Intelligence Platform
+    </div>
+  </footer>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/map.js"></script>
+  <script src="js/report.js"></script>
+</body>
+</html>

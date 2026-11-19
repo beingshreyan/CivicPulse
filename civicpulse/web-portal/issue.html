@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Issue Details — CivicPulse</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="css/variables.css" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/map.css" />
+</head>
+<body>
+  <header class="navbar">
+    <div class="container navbar-inner">
+      <a href="index.html" class="brand">
+        <span class="brand-dot"></span>
+        CIVICPULSE
+      </a>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html">Explore Map</a></li>
+          <li><a href="my-complaints.html">My Complaints</a></li>
+          <li><a href="index.html#public-stats">Public Stats</a></li>
+        </ul>
+      </nav>
+      <div class="nav-actions" id="nav-auth-area">
+        <a href="auth.html" class="btn btn-outline btn-sm">Login</a>
+        <a href="report.html" class="btn btn-accent btn-sm">+ Report an Issue</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="section-header">
+      <a href="index.html" class="btn btn-outline btn-sm">&larr; Back to All Issues</a>
+      <span id="detail-status-badge" class="badge badge-submitted">LOADING</span>
+    </div>
+
+    <div id="issue-alert" class="alert-box" style="display: none;"></div>
+
+    <div class="form-grid">
+      <!-- Left: Issue Evidence & Community Support -->
+      <div class="card">
+        <div class="issue-meta">
+          <span class="issue-id" id="detail-id">CP-0000</span>
+          <span>&bull;</span>
+          <span id="detail-category">Category</span>
+          <span>&bull;</span>
+          <span id="detail-date">--</span>
+        </div>
+
+        <h1 class="section-title" id="detail-description" style="margin: 0.5rem 0 1rem; font-size: 1.25rem;">
+          Loading issue details...
+        </h1>
+
+        <div id="detail-photo-container" style="margin-bottom: 1.25rem; display: none;">
+          <img
+            id="detail-photo"
+            alt="Citizen submitted photo evidence"
+            style="width: 100%; max-height: 320px; object-fit: cover; border-radius: var(--radius-md); border: 1px solid var(--border-color);"
+          />
+        </div>
+
+        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; padding-top: 1rem; border-top: 1px solid var(--border-color);">
+          <button id="detail-upvote-btn" class="upvote-btn">
+            &#9650; Support / Vote (<span id="detail-votes">0</span>)
+          </button>
+
+          <div style="font-size: 0.85rem; color: var(--text-muted);">
+            Priority Score: <strong id="detail-priority" style="color: var(--primary-dark);">--</strong>
+            &nbsp;|&nbsp;
+            Department: <strong id="detail-department">Pending Assignment</strong>
+          </div>
+        </div>
+
+        <!-- Resolution Proof Photo (Shown when Resolved) -->
+        <div id="resolution-proof-box" style="margin-top: 1.25rem; padding-top: 1rem; border-top: 1px solid var(--border-color); display: none;">
+          <h3 style="font-size: 0.95rem; margin-bottom: 0.5rem; color: var(--status-resolved-text);">
+            Official Resolution Evidence
+          </h3>
+          <img
+            id="resolution-photo"
+            alt="Official resolution proof"
+            style="width: 100%; max-height: 260px; object-fit: cover; border-radius: var(--radius-md);"
+          />
+        </div>
+      </div>
+
+      <!-- Right: Map Pin & Status Audit Timeline -->
+      <div style="display: flex; flex-direction: column; gap: 1.25rem;">
+        <div class="card">
+          <h3 class="section-title" style="font-size: 1rem; margin-bottom: 0.75rem;">Reported Location</h3>
+          <div id="issue-detail-map"></div>
+          <p id="detail-coords" style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-muted); margin-top: 0.5rem;">
+            Coordinates: --
+          </p>
+        </div>
+
+        <div class="card">
+          <h3 class="section-title" style="font-size: 1rem; margin-bottom: 0.5rem;">Resolution Timeline</h3>
+          <div id="detail-timeline" class="timeline">
+            <p style="font-size: 0.85rem; color: var(--text-muted);">Loading status history...</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      CivicPulse &mdash; Public Transparency &amp; Accountability Portal
+    </div>
+  </footer>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/map.js"></script>
+  <script src="js/issue.js"></script>
+</body>
+</html>

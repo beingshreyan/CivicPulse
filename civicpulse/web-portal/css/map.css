@@ -1,0 +1,118 @@
+.map-wrapper {
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-md);
+  background-color: #e5eceb;
+  margin-bottom: 1.75rem;
+}
+
+#public-map {
+  width: 100%;
+  height: 440px;
+  z-index: 1;
+}
+
+#report-map {
+  width: 100%;
+  height: 380px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-strong);
+  z-index: 1;
+}
+
+#issue-detail-map {
+  width: 100%;
+  height: 260px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+  z-index: 1;
+}
+
+.map-overlay-badge {
+  position: absolute;
+  top: 12px;
+  left: 54px;
+  z-index: 400;
+  background-color: rgba(13, 35, 41, 0.9);
+  color: #ffffff;
+  padding: 0.4rem 0.85rem;
+  border-radius: var(--radius-full);
+  font-size: 0.78rem;
+  font-weight: 600;
+  pointer-events: none;
+  box-shadow: var(--shadow-sm);
+}
+
+.coord-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-top: 0.65rem;
+  padding: 0.6rem 0.85rem;
+  background-color: var(--primary-light);
+  border: 1px solid #b5dedb;
+  border-radius: var(--radius-sm);
+  font-size: 0.84rem;
+}
+
+.coord-text {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  color: var(--primary-dark);
+}
+
+.leaflet-popup-content-wrapper {
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  font-family: var(--font-sans);
+}
+
+.map-popup {
+  min-width: 200px;
+}
+
+.map-popup-category {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--primary);
+  margin-bottom: 0.2rem;
+}
+
+.map-popup-title {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 0.4rem;
+}
+
+.map-popup-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 0.5rem;
+  padding-top: 0.45rem;
+  border-top: 1px solid var(--border-color);
+  font-size: 0.8rem;
+}
+
+.map-popup-link {
+  color: var(--primary);
+  font-weight: 600;
+}
+
+.map-popup-link:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 680px) {
+  #public-map {
+    height: 320px;
+  }
+  .map-overlay-badge {
+    display: none;
+  }
+}

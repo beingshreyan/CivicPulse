@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CivicPulse — Community Problem Intelligence Platform</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="css/variables.css" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/map.css" />
+</head>
+<body>
+  <header class="navbar">
+    <div class="container navbar-inner">
+      <a href="index.html" class="brand">
+        <span class="brand-dot"></span>
+        CIVICPULSE
+      </a>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html" class="active">Explore Map</a></li>
+          <li><a href="my-complaints.html">My Complaints</a></li>
+          <li><a href="#public-stats">Public Stats</a></li>
+        </ul>
+      </nav>
+      <div class="nav-actions" id="nav-auth-area">
+        <a href="auth.html" class="btn btn-outline btn-sm">Login</a>
+        <a href="report.html" class="btn btn-accent btn-sm">+ Report an Issue</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- 7-Category Filter Bar -->
+    <section class="filter-section">
+      <span class="filter-label">Filter by Category (7 Supported)</span>
+      <div class="category-pills" id="category-filters">
+        <button class="pill active" data-category="all">All Issues</button>
+        <button class="pill" data-category="1">1. Roads &amp; Potholes</button>
+        <button class="pill" data-category="2">2. Garbage &amp; Sanitation</button>
+        <button class="pill" data-category="3">3. Drainage &amp; Waterlogging</button>
+        <button class="pill" data-category="4">4. Streetlights &amp; Electricity</button>
+        <button class="pill" data-category="5">5. Water Supply</button>
+        <button class="pill" data-category="6">6. Public Infrastructure</button>
+        <button class="pill" data-category="7">7. Other Civic Issues</button>
+      </div>
+    </section>
+
+    <!-- Interactive Public Issue Map (Leaflet + OpenStreetMap) -->
+    <section class="map-wrapper">
+      <div class="map-overlay-badge">Interactive Public Issue Map &bull; West Bengal Municipality (OSM)</div>
+      <div id="public-map"></div>
+    </section>
+
+    <!-- Nearby Active Reports & Community Support -->
+    <section>
+      <div class="section-header">
+        <h2 class="section-title">Active Community Reports</h2>
+        <div style="display: flex; gap: 0.5rem;">
+          <select id="status-filter" class="form-control" style="width: auto; padding: 0.4rem 0.75rem;">
+            <option value="all">All Statuses</option>
+            <option value="submitted">Submitted</option>
+            <option value="under_review">Under Review</option>
+            <option value="accepted">Accepted</option>
+            <option value="in_progress">In Progress</option>
+            <option value="resolved">Resolved</option>
+          </select>
+        </div>
+      </div>
+
+      <div id="issue-list" class="issue-list">
+        <div class="card" style="text-align: center; color: var(--text-muted);">
+          Loading municipal reports...
+        </div>
+      </div>
+    </section>
+
+    <!-- Public Transparency Dashboard -->
+    <section id="public-stats" class="stats-banner">
+      <div class="stats-banner-title">Public Transparency Dashboard (Privacy-Safe Municipal Metrics)</div>
+      <div class="stats-grid">
+        <div class="stat-item">
+          <span class="stat-value" id="stat-active">--</span>
+          <span class="stat-label">Active Reports</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-value" id="stat-votes">--</span>
+          <span class="stat-label">Community Votes Cast</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-value" id="stat-verified">--%</span>
+          <span class="stat-label">Verified by Admin</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-value" id="stat-resolved">--</span>
+          <span class="stat-label">Resolved Issues</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      CivicPulse &mdash; Community Problem Intelligence Platform &bull; Powered by FastAPI, PostgreSQL &amp; OpenStreetMap
+    </div>
+  </footer>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/map.js"></script>
+  <script src="js/dashboard.js"></script>
+</body>
+</html>
