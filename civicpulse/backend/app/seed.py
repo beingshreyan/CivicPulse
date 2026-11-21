@@ -1,3 +1,4 @@
+import os
 from sqlalchemy.orm import Session
 from app.models.models import Category, Department, User, UserRole
 from app.core.security import hash_password
@@ -31,13 +32,19 @@ def seed_database(db: Session):
         if not db.query(Department).filter(Department.name == dept_name).first():
             db.add(Department(name=dept_name))
 
-    if not db.query(User).filter(User.email == "admin@civicpulse.local").first():
-        db.add(
-            User(
-                name="Municipal SuperAdmin",
-                email="admin@civicpulse.local",
-                password_hash=hash_password("Admin@1234"),
-                role=UserRole.superadmin,
+    superadmin_name = os.getenv("SUPERADMIN_NAME", "Municipal SuperAdmin").strip()
+    superadmin_email = os.getenv("SUPERADMIN_EMAIL", "").strip().lower()
+    superadmin_password = os.getenv("SUPERADMIN_PASSWORD", "")
+
+    if superadmin_email and superadmin_password:
+        if not db.query(User).filter(User.email == superadmin_email).first():
+            db.add(
+                User(
+                    name=superadmin_name,
+                    email=superadmin_email,
+                    password_hash=hash_password(superadmin_password),
+                    role=UserRole.superadmin,
+                )
             )
-        )
+
     db.commit()
