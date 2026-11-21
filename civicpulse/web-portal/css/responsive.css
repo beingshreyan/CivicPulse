@@ -1,0 +1,201 @@
+:root {
+    --cp-teal-dark: #0b3d3b;
+    --cp-teal: #0f6b66;
+    --cp-emerald: #14b8a6;
+    --cp-bg: #f4f7f7;
+    --cp-surface: #ffffff;
+    --cp-border: #dce5e5;
+    --cp-text: #111827;
+    --cp-muted: #4b5563;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    max-width: 100%;
+    overflow-x: hidden;
+    background-color: var(--cp-bg);
+    color: var(--cp-text);
+    -webkit-text-size-adjust: 100%;
+}
+
+img,
+svg,
+canvas,
+video {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Containers */
+.container,
+.page-container,
+.main-content,
+main {
+    width: 100%;
+    max-width: 1280px;
+    margin-inline: auto;
+    padding-inline: clamp(14px, 3vw, 32px);
+}
+
+/* Top Navigation / Header */
+header,
+.navbar,
+.top-nav {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 12px clamp(14px, 3vw, 28px);
+}
+
+.nav-links,
+.nav-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Responsive Grids & Split Layouts */
+.grid,
+.cards-grid,
+.kpi-grid,
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 16px;
+}
+
+.split-layout,
+.report-layout,
+.detail-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+    gap: 20px;
+    align-items: start;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+}
+
+/* Leaflet Map & Dropzone Sizing */
+#map,
+.leaflet-container,
+.map-box {
+    width: 100%;
+    height: clamp(260px, 45vh, 460px);
+    min-height: 240px;
+    border-radius: 10px;
+    z-index: 1;
+}
+
+.dropzone,
+.upload-box {
+    min-height: 140px;
+    padding: 18px;
+    text-align: center;
+    border-radius: 10px;
+}
+
+/* Touch-Friendly Controls & Inputs */
+button,
+.btn,
+input,
+select,
+textarea {
+    min-height: 42px;
+    font-size: 16px; /* Prevents iOS Safari auto-zoom on input focus */
+}
+
+@media (min-width: 769px) {
+    button,
+    .btn,
+    input,
+    select,
+    textarea {
+        font-size: 14px;
+    }
+}
+
+/* Horizontal Scroll Wrapper for Wide Tables / Timelines */
+.table-responsive,
+.table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    border-radius: 8px;
+}
+
+table {
+    width: 100%;
+    min-width: 600px;
+    border-collapse: collapse;
+}
+
+
+@media (max-width: 900px) {
+    .split-layout,
+    .report-layout,
+    .detail-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+    header,
+    .navbar,
+    .top-nav {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .nav-links,
+    .nav-actions {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .nav-links > *,
+    .nav-actions > * {
+        flex: 1 1 auto;
+        text-align: center;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .card,
+    .panel,
+    .modal-content {
+        padding: 14px;
+        border-radius: 10px;
+    }
+
+    /* Full-width action buttons on small screens */
+    .action-bar,
+    .card-actions,
+    .filter-bar {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+    }
+
+    .action-bar button,
+    .action-bar .btn,
+    .filter-bar select,
+    .filter-bar input {
+        width: 100%;
+    }
+}
