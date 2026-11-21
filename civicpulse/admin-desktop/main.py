@@ -6,13 +6,18 @@ from api_client import ApiClient
 from ui.login_window import LoginWindow
 from ui.main_window import MainWindow
 
+def resource_path(relative_path: str) -> str:
+    """Resolve path to bundled resource in dev or PyInstaller mode."""
+    base_dir = getattr(sys, "_MEIPASS", os.path.dirname(os.path.abspath(__file__)))
+    return os.path.join(base_dir, relative_path)
+
 def load_app_icon(app: QApplication):
-    icon_path = os.path.join(os.path.dirname(__file__), "assets", "civicpulse-icon.svg")
+    icon_path = resource_path("assets/civicpulse-icon.svg")
     if os.path.exists(icon_path):
         app.setWindowIcon(QIcon(icon_path))
 
 def load_stylesheet(app: QApplication):
-    qss_path = os.path.join(os.path.dirname(__file__), "ui", "theme.qss")
+    qss_path = resource_path("ui/theme.qss")
     if os.path.exists(qss_path):
         with open(qss_path, "r", encoding="utf-8") as f:
             app.setStyleSheet(f.read())
