@@ -1,6 +1,7 @@
 const CONFIG = {
-  API_BASE_URL: 'http://127.0.0.1:8000/api',
-  USE_MOCK_FALLBACK: true,
+  API_BASE_URL: 'https://civicpulse-u137.onrender.com/api',
+  BACKEND_ORIGIN: 'https://civicpulse-u137.onrender.com',
+  USE_MOCK_FALLBACK: false,
 
   // Default West Bengal Municipality coordinates
   DEFAULT_CENTER: [22.8914, 88.3972],

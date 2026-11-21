@@ -17,7 +17,7 @@ def main():
     app = QApplication(sys.argv)
     load_stylesheet(app)
 
-    api = ApiClient("http://127.0.0.1:8000")
+    api = ApiClient("https://civicpulse-u137.onrender.com")  
     main_win = None
 
     def show_login():
