@@ -19,7 +19,7 @@ class UserLogin(BaseModel):
 class UserPublic(BaseModel):
     user_id: int
     name: str
-    email: EmailStr
+    email: str
     role: UserRole
 
     class Config:

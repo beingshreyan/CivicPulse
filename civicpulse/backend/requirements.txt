@@ -9,3 +9,6 @@ passlib[bcrypt]
 bcrypt==4.0.1
 python-multipart
 slowapi
+PySide6
+requests
+cloudinary

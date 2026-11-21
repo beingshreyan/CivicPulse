@@ -1,6 +1,5 @@
 const CONFIG = {
   API_BASE_URL: 'http://127.0.0.1:8000/api',
-  // Set to false once your FastAPI backend is running
   USE_MOCK_FALLBACK: true,
 
   // Default West Bengal Municipality coordinates
