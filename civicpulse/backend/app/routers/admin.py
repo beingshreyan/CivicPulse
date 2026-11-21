@@ -1,9 +1,11 @@
-from typing import List
+from typing import List, Optional
 from fastapi import APIRouter, Depends, File, HTTPException, UploadFile
+from pydantic import BaseModel, EmailStr
 from sqlalchemy.orm import Session
 
 from app.database import get_db
 from app.models.models import (
+    AdminInvite,
     Complaint,
     ComplaintStatus,
     Department,
@@ -19,6 +21,12 @@ from app.services.storage import save_uploaded_image
 from app.services.priority import calculate_priority_score
 
 router = APIRouter(prefix="/api/admin", tags=["Admin Operations"])
+
+
+class InviteCreate(BaseModel):
+    email: EmailStr
+    role: UserRole
+    department_id: Optional[int] = None
 
 
 @router.get("/departments")
@@ -107,10 +115,59 @@ async def upload_resolution_photo(
     return {"complaint_id": complaint_id, "resolution_image_url": image_url, "status": "resolved"}
 
 
+@router.post("/invites")
+def create_admin_invite(
+    payload: InviteCreate,
+    db: Session = Depends(get_db),
+    manager: User = Depends(require_roles([UserRole.manager, UserRole.superadmin])),
+):
+    if payload.role in {UserRole.citizen, UserRole.superadmin}:
+        raise HTTPException(status_code=400, detail="Invalid admin role for invite.")
+
+    email = payload.email.lower()
+    if db.query(AdminInvite).filter(AdminInvite.email == email).first():
+        raise HTTPException(status_code=400, detail="An invite for this email already exists.")
+
+    invite = AdminInvite(
+        email=email,
+        role=payload.role,
+        department_id=payload.department_id,
+        invited_by=manager.user_id,
+    )
+    db.add(invite)
+    db.commit()
+    db.refresh(invite)
+    return {
+        "invite_id": invite.invite_id,
+        "email": invite.email,
+        "role": invite.role.value,
+        "department_id": invite.department_id,
+        "is_used": False,
+    }
+
+
+@router.get("/invites")
+def list_admin_invites(
+    db: Session = Depends(get_db),
+    _: User = Depends(require_roles([UserRole.manager, UserRole.superadmin])),
+):
+    invites = db.query(AdminInvite).order_by(AdminInvite.created_at.desc()).all()
+    return [
+        {
+            "invite_id": i.invite_id,
+            "email": i.email,
+            "role": i.role.value,
+            "department_id": i.department_id,
+            "is_used": bool(i.is_used),
+        }
+        for i in invites
+    ]
+
+
 @router.get("/users", response_model=List[UserPublic])
 def list_users(
     db: Session = Depends(get_db),
-    _: User = Depends(require_roles([UserRole.superadmin])),
+    _: User = Depends(require_roles([UserRole.manager, UserRole.superadmin])),
 ):
     return db.query(User).order_by(User.user_id).all()
 
@@ -120,7 +177,7 @@ def update_user_role(
     user_id: int,
     role: UserRole,
     db: Session = Depends(get_db),
-    _: User = Depends(require_roles([UserRole.superadmin])),
+    _: User = Depends(require_roles([UserRole.manager, UserRole.superadmin])),
 ):
     user = db.query(User).filter(User.user_id == user_id).first()
     if not user:

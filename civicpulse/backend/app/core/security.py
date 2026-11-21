@@ -14,9 +14,11 @@ pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 bearer_scheme = HTTPBearer(auto_error=False)
 
 ADMIN_ROLES = {
-    UserRole.verifier,
+    UserRole.analyst,
+    UserRole.updater,
     UserRole.dispatcher,
-    UserRole.dept_officer,
+    UserRole.reviewer,
+    UserRole.manager,
     UserRole.superadmin,
 }
 

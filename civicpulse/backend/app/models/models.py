@@ -17,11 +17,12 @@ from app.database import Base
 
 class UserRole(str, enum.Enum):
     citizen = "citizen"
-    verifier = "verifier"
+    analyst = "analyst"
+    updater = "updater"
     dispatcher = "dispatcher"
-    dept_officer = "dept_officer"
+    reviewer = "reviewer"
+    manager = "manager"
     superadmin = "superadmin"
-
 
 class ComplaintStatus(str, enum.Enum):
     submitted = "submitted"
@@ -48,6 +49,7 @@ class User(Base):
     password_hash = Column(Text, nullable=False)
     role = Column(Enum(UserRole), default=UserRole.citizen, nullable=False)
     created_at = Column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc))
+    department_id = Column(Integer, ForeignKey("departments.department_id"), nullable=True)
 
     complaints = relationship("Complaint", back_populates="reporter", foreign_keys="Complaint.user_id")
     votes = relationship("Vote", back_populates="user")
@@ -140,4 +142,16 @@ class DuplicateReview(Base):
     geographic_distance = Column(Float, nullable=False)
     decision = Column(Enum(DuplicateDecision), default=DuplicateDecision.pending, nullable=False)
     reviewed_by = Column(Integer, ForeignKey("users.user_id"), nullable=True)
+    created_at = Column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc))
+
+
+class AdminInvite(Base):
+    __tablename__ = "admin_invites"
+
+    invite_id = Column(Integer, primary_key=True, index=True)
+    email = Column(String(255), unique=True, index=True, nullable=False)
+    role = Column(Enum(UserRole), nullable=False)
+    department_id = Column(Integer, ForeignKey("departments.department_id"), nullable=True)
+    is_used = Column(Integer, default=0, nullable=False)  # 0 = pending, 1 = registered
+    invited_by = Column(Integer, ForeignKey("users.user_id"), nullable=False)
     created_at = Column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc))

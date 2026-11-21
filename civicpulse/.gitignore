@@ -1,0 +1,49 @@
+# --- Project Secrets & Local-Only Scripts ---
+.env
+*.env
+backend/.env
+backend/create_superadmin.py
+
+# --- User Uploaded Media ---
+backend/uploads/*
+!backend/uploads/.gitkeep
+
+# --- Python & Virtual Environments ---
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+venv/
+.venv/
+env/
+ENV/
+.python-version
+
+# --- Packaging & Build Artifacts (PyInstaller / Wheels) ---
+build/
+dist/
+*.egg-info/
+*.egg
+
+# --- Testing & Linter Caches ---
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# --- Databases & Logs ---
+*.db
+*.sqlite3
+*.log
+
+# --- OS & IDE Files ---
+.DS_Store
+.AppleDouble
+.LSOverride
+Thumbs.db
+Desktop.ini
+.vscode/
+.idea/
+*.swp
+*.swo
