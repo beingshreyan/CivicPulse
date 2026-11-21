@@ -257,6 +257,11 @@ table {
         flex-wrap: wrap;
     }
 
+    .cp-hamburger {
+        display: flex;
+        flex: 0 0 auto;
+    }
+
     .nav-collapse {
         display: none;
         flex-direction: column;
