@@ -12,3 +12,4 @@ slowapi
 PySide6
 requests
 cloudinary
+certifi
