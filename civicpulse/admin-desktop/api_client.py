@@ -2,7 +2,7 @@ import requests
 
 
 class ApiClient:
-    def __init__(self, base_url: str = "http://127.0.0.1:8000"):
+    def __init__(self, base_url: str = "https://civicpulse-u137.onrender.com"):
         self.base_url = base_url.rstrip("/")
         self.api_url = f"{self.base_url}/api"
         self.token = None

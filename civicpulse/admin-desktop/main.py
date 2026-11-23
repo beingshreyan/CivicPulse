@@ -43,8 +43,14 @@ def main() -> int:
     login_window = LoginWindow(client)
     main_window_holder = {}
 
+    def on_logout() -> None:
+        window = main_window_holder.pop("window", None)
+        if window is not None:
+            window.close()
+        login_window.show()
+
     def on_login_success(auth_data: dict) -> None:
-        window = MainWindow(client, auth_data)
+        window = MainWindow(client, on_logout)
         main_window_holder["window"] = window
         window.show()
         login_window.close()

@@ -1,4 +1,4 @@
-from PySide6.QtCore import Qt
+from PySide6.QtCore import Qt, Signal
 from PySide6.QtWidgets import (
     QDialog,
     QVBoxLayout,
@@ -13,6 +13,8 @@ from PySide6.QtWidgets import (
 
 
 class LoginWindow(QDialog):
+    login_successful = Signal(dict)
+
     def __init__(self, api):
         super().__init__()
         self.api = api
@@ -106,7 +108,8 @@ class LoginWindow(QDialog):
             QMessageBox.warning(self, "Missing Fields", "Please enter both email and password.")
             return
         try:
-            self.api.login(email, password)
+            auth_data = self.api.login(email, password)
+            self.login_successful.emit(auth_data)
             self.accept()
         except Exception as exc:
             QMessageBox.critical(self, "Login Failed", str(exc))
