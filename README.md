@@ -6,6 +6,15 @@ CivicPulse is a civic-tech platform designed to help communities report, validat
 
 Instead of treating every complaint as an isolated report, CivicPulse connects community participation with administrative decision-making to create a structured civic issue management workflow.
 
+## Project Links
+
+| Component | Link |
+|---|---|
+| **Citizen Web Portal** | [https://civicpulse-web-portal.vercel.app](https://civicpulse-web-portal.vercel.app) |
+| **Backend API** | [https://civicpulse-u137.onrender.com](https://civicpulse-u137.onrender.com) |
+| **Admin Desktop App** | [Download Build (Google Drive)](https://drive.google.com/drive/folders/13QNudYCcYridTvJPbHmG-mJfJZvafLeq) |
+| **GitHub Repository** | [https://github.com/beingshreyan/CivicPulse.git](https://github.com/beingshreyan/CivicPulse.git) |
+
 ## Core Workflow
 
 **REPORT → DETECT → VALIDATE → PRIORITIZE → ASSIGN → TRACK → LEARN**
@@ -177,6 +186,8 @@ Both client applications communicate with the backend through APIs. Client appli
 ## API
 
 The backend is designed around RESTful API endpoints for communication between the citizen website, administrative application, and central database.
+
+- **Base URL:** [https://civicpulse-u137.onrender.com](https://civicpulse-u137.onrender.com)
 
 Planned API areas include:
 
